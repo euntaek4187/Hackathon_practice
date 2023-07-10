@@ -11,11 +11,12 @@ def index(req):
         title = req.POST.get('title')
         image = req.FILES.get('image')
         content = req.POST.get('content')
+        writer = req.user if req.user.is_authenticated else None
         Post.objects.create(
             image=image,
             content=content,
             title=title,
-            writer=req.user,
+            writer=writer,
         )
     post_all = Post.objects.all()
     context = {
