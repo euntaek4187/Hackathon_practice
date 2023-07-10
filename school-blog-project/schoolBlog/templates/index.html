@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>학교가 불편할 때는<br> 언제였나요?</h1>
+        <div>
+            <input type="file" name="image" accept="image/*" id="id_image">
+        </div>
+        <div>
+            <label for="id_content">타이틀</label>
+            <textarea name="title" id="id_content" cols="20" rows="1"></textarea>
+        </div>
+        <div>
+            <label for="id_content">내용</label>
+            <textarea name="content" id="id_content" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <input type="submit">
+        </div>
+
+        {% for post in post_all %}
+        <div class="post-box">
+            <div class="post-content">
+                <p>작성자 : {{post.writer}}</p>
+                <p>제목 : {{post.title}}</p>
+                <a href="{% url 'post-detail' post.id %}">자세히보기</a>
+            </div>
+        </div>
+        {% endfor %}
+    </form>
+</body>
+</html>
