@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>성공</h1>
+    <a href="{% url 'index' %}">돌아가기</a>
+    <a href="{% url 'post-update' post.id %}">수정하기</a>
+    <a href="{% url 'post-delete' post.id %}">삭제하기</a><br/>
+    <p>작성자 : {{post.writer}}</p>
+    <p>제목 : {{post.title}}</p>
+    <p>이미지</p>
+    {% if post.image %}
+        <img class="card__image" src="{{post.image.url}}">
+    {% else %}
+        <img class="card__image" src="http://via.placeholder.com/600x600">
+    {% endif %}
+    <p>내용 : {{post.content}}</p>
+    <p>작성일자 : {{post.created_at|date:"Y년 m월 d일 H:i"}}</p>
+
+    <div>
+        <form action="{% url 'post-comment' post.id %}" method="POST">
+            {% csrf_token %}
+            <label for="text">답변달기:</label>
+            <input type="text" id="text" name="text">
+            <button type="submit">작성</button>
+        </form>
+    </div>
+    <div>
+        {% for comment in post.comments.all %}
+        <div class="comment-box">
+            <p>답글 : {{ comment.content }} <br/>{{ comment.created_at }}</p>
+            <a href="{% url 'post-comment-delete' post.id comment.id %}">삭제</a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
