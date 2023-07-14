@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'schoolBlog',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+AUTH_USER_MODEL = 'accounts.Account'
 
 
 # Database
@@ -124,6 +126,17 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# settings.py
+
+# 인증 관련 설정
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_REDIRECT_URL = 'schoolBlog:index'
+LOGOUT_REDIRECT_URL = 'schoolBlog:index'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
