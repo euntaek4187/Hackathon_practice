@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolBlog</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+            #로그인된 사용자에게만 마이페이지가 뜨도록 했습니다
+                <li><a href="{% url 'schoolBlog:profile' user.pk %}">마이페이지</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>

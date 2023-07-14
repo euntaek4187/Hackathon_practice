@@ -1,0 +1,64 @@
+{% extends 'account/base.html' %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyPage</title>
+</head>
+<body>
+
+  <div class="row">
+    <div class="col-xs-6 col-md-3">
+      <a href="{{ profile_user.profile.profile_photo.url }}" target="_blank">
+        <img class="round" src="{{ profile_user.profile.profile_photo.url }}" width="200" alt="프로필 사진">
+      </a><br>
+    {% else %}
+      <img class="round" src="{% static '/css/images/Default-Profile-Picture-Image.png' %}" width="200" alt="기본 프로필 사진">
+    {% endif %}
+    </div>
+
+    <div class="col-xs-6 col-md-3">
+      {% if profile_user.profile.nickname %}
+        <h2>{{profile_user.profile.nickname}}</h2>
+      {% endif %}
+      {% if user == profile_user %}
+        <a href="#">
+          <button type="button" class="btn btn-default">프로필 편집</button></a></h2>
+      {% endif %}
+      <h3> username: {{profile_user.username}} <br>
+        {% if profile_user.first_name is not None %}
+          name: {{profile_user.first_name}} {{profile_user.last_name}} <br>
+        {% endif %}
+      </h3>
+    </div>
+  </div>
+
+  {% if user == profile_user %}
+    <div>
+      <h3>내가 작성한 글</h3>
+      {% for post in profile_user.post_set.all %}
+        <p>작성일자: {{ post.created_at }}</p>
+        <p>제목: {{ post.title }}</p>
+        <p>내용: {{ post.content }}</p>
+        <hr>
+      {% empty %}
+        <p>작성한 글이 없습니다.</p>
+      {% endfor %}
+    </div>
+
+    <div>
+      <h3>내가 작성한 댓글</h3>
+      {% for comment in profile_user.comment_set.all %}
+        <p>작성일자: {{ comment.created_at }}</p>
+        <p>댓글: {{ comment.content }}</p>
+        <hr>
+      {% empty %}
+        <p>작성한 댓글이 없습니다.</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+</body>
+
+{% endblock %}

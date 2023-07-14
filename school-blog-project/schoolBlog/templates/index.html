@@ -1,13 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
+
+{% block content %}
     <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h1>학교가 불편할 때는<br> 언제였나요?</h1>
@@ -36,5 +30,4 @@
         </div>
         {% endfor %}
     </form>
-</body>
-</html>
+{% endblock %}
