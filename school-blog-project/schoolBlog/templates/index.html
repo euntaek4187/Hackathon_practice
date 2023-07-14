@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
+    {% if user.is_authenticated %}
+    <p>로그인 중인 사용자: {{ user.username }}</p>
+    <a href="{% url 'logout' %}">로그아웃</a>
+    {% else %}
+    <a href="{% url 'accounts:login' %}">로그인</a> |
+    <a href="{% url 'accounts:signup' %}">회원가입</a>
+    {% endif %}
     <form action="{% url 'index' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <h1>학교가 불편할 때는<br> 언제였나요?</h1>
@@ -29,8 +36,8 @@
         {% for post in post_all %}
         <div class="post-box">
             <div class="post-content">
-                <p>작성자 : {{post.writer}}</p>
-                <p>제목 : {{post.title}}</p>
+                <p>작성자: {{ post.writer }}</p>
+                <p>제목: {{ post.title }}</p>
                 <a href="{% url 'post-detail' post.id %}">자세히보기</a>
             </div>
         </div>
