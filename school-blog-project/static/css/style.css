@@ -19,3 +19,7 @@
     height: 50px;
     background-color: rgb(255, 232, 205);
 }
+
+.round {
+    border-radius: 30%;
+}
