@@ -32,4 +32,10 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField()
     created_at = models.DateTimeField(verbose_name='작성일', auto_now_add=True)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    nickname = models.CharField(max_length=64)
+    bio = models.TextField(verbose_name='자기소개', blank=True)
+    profile_photo = models.ImageField(blank=True)
     

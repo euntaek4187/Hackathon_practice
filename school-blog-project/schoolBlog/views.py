@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Post, Comment
 from django.utils import timezone
+from django.views.generic import DetailView
+from django.contrib.auth.models import User
 
 # Create your views here.
 def test(req):
@@ -84,3 +86,7 @@ def comment_delete(req, post_id, comment_id):
     context = {'post': post}
     return render(req, 'post_detail.html', context)
 
+class ProfileView(DetailView):
+    model = User
+    template_name = 'profile.html'
+    context_object_name = 'profile_user'
